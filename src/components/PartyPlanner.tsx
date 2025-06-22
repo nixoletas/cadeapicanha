@@ -49,16 +49,36 @@ export default function PartyPlanner() {
           <h2>Detalhes da Festa</h2>
           
           <div className="form-group">
-            <label htmlFor="guestCount">Número de Convidados:</label>
-            <input
-              type="number"
-              id="guestCount"
-              min="1"
-              max="100"
-              value={guestCount}
-              onChange={(e) => setGuestCount(parseInt(e.target.value) || 1)}
-              className="number-input"
-            />
+            <label htmlFor="guestCount">Número de Convidados</label>
+            <div className="number-input-container">
+              <input
+                type="number"
+                id="guestCount"
+                min="1"
+                max="100"
+                value={guestCount}
+                onChange={(e) => setGuestCount(parseInt(e.target.value) || 1)}
+                className="number-input"
+              />
+              <div className="number-input-arrows">
+                <button
+                  type="button"
+                  className="number-input-arrow up"
+                  onClick={() => setGuestCount(prev => Math.min(prev + 1, 100))}
+                  aria-label="Aumentar número de convidados"
+                >
+                  ▲
+                </button>
+                <button
+                  type="button"
+                  className="number-input-arrow down"
+                  onClick={() => setGuestCount(prev => Math.max(prev - 1, 1))}
+                  aria-label="Diminuir número de convidados"
+                >
+                  ▼
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
