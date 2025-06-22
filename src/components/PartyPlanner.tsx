@@ -11,6 +11,7 @@ export default function PartyPlanner() {
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [dietary, setDietary] = useState<string[]>([]);
   const [partyPlan, setPartyPlan] = useState<PartyPlan | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDietaryChange = (restriction: string) => {
     setDietary(prev => 
@@ -21,13 +22,18 @@ export default function PartyPlanner() {
   };
 
   const generateMenu = () => {
-    const plan = generateAutoMenu(guestCount, {
-      budget,
-      variety,
-      difficulty,
-      dietary
-    });
-    setPartyPlan(plan);
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      const plan = generateAutoMenu(guestCount, {
+        budget,
+        variety,
+        difficulty,
+        dietary
+      });
+      setPartyPlan(plan);
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -224,8 +230,9 @@ export default function PartyPlanner() {
           <button 
             className="generate-btn"
             onClick={generateMenu}
+            disabled={isLoading}
           >
-            🍖 Gerar Cardápio
+            {isLoading ? '⏳ Gerando...' : '🍖 Gerar Cardápio'}
           </button>
         </div>
       </div>
