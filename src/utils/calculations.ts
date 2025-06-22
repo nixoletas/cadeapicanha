@@ -26,20 +26,12 @@ export const calculateMenuItem = (meat: MeatType, guestCount: number): MenuItem 
 export const generateAutoMenu = (guestCount: number, preferences: {
   budget?: 'low' | 'medium' | 'high';
   variety?: 'minimal' | 'moderate' | 'extensive';
-  difficulty?: 'easy' | 'medium' | 'hard';
   dietary?: string[];
 } = {}): PartyPlan => {
-  const { budget = 'medium', variety = 'moderate', difficulty = 'medium', dietary = [] } = preferences;
+  const { budget = 'medium', variety = 'moderate', dietary = [] } = preferences;
   
   // Filter meats based on preferences
   let availableMeats = meatTypes;
-  
-  // Filter by difficulty
-  if (difficulty === 'easy') {
-    availableMeats = availableMeats.filter(meat => meat.difficulty === 'easy');
-  } else if (difficulty === 'medium') {
-    availableMeats = availableMeats.filter(meat => meat.difficulty !== 'hard');
-  }
   
   // Filter by budget
   if (budget === 'low') {
@@ -54,9 +46,6 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   }
   if (dietary.includes('no-beef')) {
     availableMeats = availableMeats.filter(meat => meat.category !== 'beef');
-  }
-  if (dietary.includes('no-seafood')) {
-    availableMeats = availableMeats.filter(meat => !['fish', 'seafood'].includes(meat.category));
   }
   
   // Determine number of meat types based on variety preference
@@ -76,8 +65,9 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   const selectedMeats: MeatType[] = [];
   const categories = new Set<string>();
   
-  // First, try to get one from each category
-  const categoryOrder = ['beef', 'pork', 'chicken', 'lamb', 'fish', 'seafood'];
+  
+  // First, try to get one from each category (excluding seafood)
+  const categoryOrder = ['beef', 'pork', 'chicken', 'lamb', 'fish'];
   for (const category of categoryOrder) {
     if (selectedMeats.length >= meatTypeCount) break;
     
@@ -89,12 +79,17 @@ export const generateAutoMenu = (guestCount: number, preferences: {
     }
   }
   
-  // Fill remaining slots with random meats
+  // Fill remaining slots with random meats (prioritizing bread and sides)
   while (selectedMeats.length < meatTypeCount) {
     const remainingMeats = availableMeats.filter(meat => !selectedMeats.includes(meat));
     if (remainingMeats.length === 0) break;
     
-    const selected = remainingMeats[Math.floor(Math.random() * remainingMeats.length)];
+    // Prioritize bread and sides for remaining slots
+    const breadAndSides = remainingMeats.filter(meat => ['bread', 'sides'].includes(meat.category));
+    const otherMeats = remainingMeats.filter(meat => !['bread', 'sides'].includes(meat.category));
+    
+    const meatsToChooseFrom = breadAndSides.length > 0 ? breadAndSides : otherMeats;
+    const selected = meatsToChooseFrom[Math.floor(Math.random() * meatsToChooseFrom.length)];
     selectedMeats.push(selected);
   }
   
@@ -110,7 +105,6 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   const dietaryNotes: string[] = [];
   if (dietary.includes('no-pork')) dietaryNotes.push('Pork-free menu');
   if (dietary.includes('no-beef')) dietaryNotes.push('Beef-free menu');
-  if (dietary.includes('no-seafood')) dietaryNotes.push('Seafood-free menu');
   
   return {
     guestCount,

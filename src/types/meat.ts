@@ -1,13 +1,12 @@
 export interface MeatType {
   id: string;
   name: string;
-  category: 'beef' | 'pork' | 'chicken' | 'lamb' | 'fish' | 'seafood' | 'sides';
+  category: 'beef' | 'pork' | 'chicken' | 'lamb' | 'fish' | 'sides' | 'bread';
   portionPerPerson: number; // in ounces
   pricePerPound: number;
   description: string;
   image?: string;
   cookingTime: number; // in minutes
-  difficulty: 'easy' | 'medium' | 'hard';
 }
 
 export interface MenuItem {

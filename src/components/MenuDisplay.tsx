@@ -7,15 +7,6 @@ interface MenuDisplayProps {
 }
 
 export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'easy': return '#4CAF50';
-      case 'medium': return '#FF9800';
-      case 'hard': return '#F44336';
-      default: return '#666';
-    }
-  };
-
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'beef': return '🐄';
@@ -23,18 +14,8 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
       case 'chicken': return '🐔';
       case 'lamb': return '🐑';
       case 'fish': return '🐟';
-      case 'seafood': return '🦐';
       case 'bread': return '🥖';
       default: return '🥩';
-    }
-  };
-
-  const getDifficultyText = (difficulty: string) => {
-    switch (difficulty) {
-      case 'easy': return 'Fácil';
-      case 'medium': return 'Médio';
-      case 'hard': return 'Difícil';
-      default: return difficulty;
     }
   };
 
@@ -42,7 +23,6 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
     switch (note) {
       case 'Pork-free menu': return '* Sem porco';
       case 'Beef-free menu': return '* Sem carne bovina';
-      case 'Seafood-free menu': return '* Sem frutos do mar';
       default: return note;
     }
   };
@@ -96,12 +76,6 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
                 <div className="item-info">
                   <h4>{item.meat.name}</h4>
                   <p className="item-description">{item.meat.description}</p>
-                </div>
-                <div 
-                  className="difficulty-badge"
-                  style={{ backgroundColor: getDifficultyColor(item.meat.difficulty) }}
-                >
-                  {getDifficultyText(item.meat.difficulty)}
                 </div>
               </div>
 

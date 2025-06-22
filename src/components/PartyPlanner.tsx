@@ -8,7 +8,6 @@ export default function PartyPlanner() {
   const [guestCount, setGuestCount] = useState(10);
   const [budget, setBudget] = useState<'low' | 'medium' | 'high'>('medium');
   const [variety, setVariety] = useState<'minimal' | 'moderate' | 'extensive'>('moderate');
-  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [dietary, setDietary] = useState<string[]>([]);
   const [partyPlan, setPartyPlan] = useState<PartyPlan | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +27,11 @@ export default function PartyPlanner() {
       const plan = generateAutoMenu(guestCount, {
         budget,
         variety,
-        difficulty,
         dietary
       });
       setPartyPlan(plan);
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   };
 
   return (
@@ -160,42 +158,6 @@ export default function PartyPlanner() {
           </div>
 
           <div className="form-group">
-            <label>Dificuldade de Preparo:</label>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="easy"
-                  checked={difficulty === 'easy'}
-                  onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
-                />
-                <span>Fácil</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="medium"
-                  checked={difficulty === 'medium'}
-                  onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
-                />
-                <span>Médio</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="hard"
-                  checked={difficulty === 'hard'}
-                  onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
-                />
-                <span>Difícil</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="form-group">
             <label>Restrições Alimentares:</label>
             <div className="checkbox-group">
               <label>
@@ -213,14 +175,6 @@ export default function PartyPlanner() {
                   onChange={() => handleDietaryChange('no-beef')}
                 />
                 <span>Sem Carne Bovina</span>
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={dietary.includes('no-seafood')}
-                  onChange={() => handleDietaryChange('no-seafood')}
-                />
-                <span>Sem Frutos do Mar</span>
               </label>
             </div>
           </div>
