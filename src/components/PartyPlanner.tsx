@@ -40,6 +40,7 @@ export default function PartyPlanner() {
         <div className="header-content">
           <h1>🥩 Cadê a picanha</h1>
           <p>App que te ajuda a calcular a quantidade de carne para sua festa!</p>
+          <p className='smaller-description'>Insira a quantidade de convidados e as preferências para gerar um cardápio personalizado.</p>
         </div>
       </div>
 
@@ -217,12 +218,6 @@ export default function PartyPlanner() {
         <div className="menu-section">
           <div className="menu-header">
             <h2>Seu Cardápio da Festa</h2>
-            <button 
-              className="regenerate-btn"
-              onClick={regenerateMenu}
-            >
-              🔄 Gerar novamente
-            </button>
           </div>
           <MenuDisplay partyPlan={partyPlan} />
         </div>
