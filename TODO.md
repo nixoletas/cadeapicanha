@@ -1,0 +1,5 @@
+- [ ] Conferir medidor de carne por pessoa (400g por pessoa somando todos os tipos de carne)
+- [ ] Adicionar pão de alho
+- [ ] Adicionar bebidas (considerar que a maioria das pessoas bebem água, refri ou suco e os que bebem álcool, bebem 5 a 7 long necks)
+- [ ] Adicionar links de propagandas de churrasqueiras e utensílios de churrasco
+- [ ] Adicionar opções de açougue baseado na localização do usuário
