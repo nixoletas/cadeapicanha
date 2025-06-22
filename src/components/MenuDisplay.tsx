@@ -23,6 +23,7 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
     switch (note) {
       case 'Pork-free menu': return '* Sem porco';
       case 'Beef-free menu': return '* Sem carne bovina';
+      case 'Quantidades ajustadas para respeitar limite de 400g por pessoa': return '* 400g por pessoa';
       default: return note;
     }
   };
@@ -48,6 +49,14 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
             <div className="summary-item">
               <span className="label">Peso Total:</span>
               <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
+            </div>
+            <div className="summary-item">
+              <span className="label">Limite Máximo:</span>
+              <span className="value">{formatWeight((partyPlan.guestCount * 400) / 1000 / 0.453592)}</span>
+            </div>
+            <div className="summary-item">
+              <span className="label">Média por Pessoa:</span>
+              <span className="value">{formatWeight(partyPlan.totalMeatWeight / partyPlan.guestCount)}</span>
             </div>
           </div>
         </div>

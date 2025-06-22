@@ -65,7 +65,6 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   const selectedMeats: MeatType[] = [];
   const categories = new Set<string>();
   
-  
   // First, try to get one from each category (excluding seafood)
   const categoryOrder = ['beef', 'pork', 'chicken', 'lamb', 'fish'];
   for (const category of categoryOrder) {
@@ -93,8 +92,33 @@ export const generateAutoMenu = (guestCount: number, preferences: {
     selectedMeats.push(selected);
   }
   
-  // Calculate menu items
-  const menuItems = selectedMeats.map(meat => calculateMenuItem(meat, guestCount));
+  // Calculate maximum total weight allowed (400g per person)
+  const maxTotalWeightKg = (guestCount * 400) / 1000; // Convert to kg
+  const maxTotalWeightLbs = maxTotalWeightKg / 0.453592; // Convert to pounds
+  
+  // Calculate initial menu items with standard portions
+  let menuItems = selectedMeats.map(meat => calculateMenuItem(meat, guestCount));
+  
+  // Calculate current total weight
+  let currentTotalWeight = menuItems.reduce((sum, item) => sum + item.quantity, 0);
+  
+  // If total weight exceeds limit, adjust quantities proportionally
+  if (currentTotalWeight > maxTotalWeightLbs) {
+    const adjustmentFactor = maxTotalWeightLbs / currentTotalWeight;
+    
+    menuItems = menuItems.map(item => {
+      const adjustedQuantity = Math.ceil(item.quantity * adjustmentFactor * 100) / 100; // Round to 2 decimal places
+      const adjustedTotalCost = adjustedQuantity * item.meat.pricePerPound;
+      const adjustedTotalPortions = Math.floor((adjustedQuantity * 16) / item.meat.portionPerPerson);
+      
+      return {
+        ...item,
+        quantity: adjustedQuantity,
+        totalCost: adjustedTotalCost,
+        totalPortions: adjustedTotalPortions
+      };
+    });
+  }
   
   // Calculate totals
   const totalCost = menuItems.reduce((sum, item) => sum + item.totalCost, 0);
@@ -105,6 +129,11 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   const dietaryNotes: string[] = [];
   if (dietary.includes('no-pork')) dietaryNotes.push('Pork-free menu');
   if (dietary.includes('no-beef')) dietaryNotes.push('Beef-free menu');
+  
+  // Add note if quantities were adjusted
+  if (currentTotalWeight > maxTotalWeightLbs) {
+    dietaryNotes.push('Quantidades ajustadas para respeitar limite de 400g por pessoa');
+  }
   
   return {
     guestCount,
