@@ -30,10 +30,6 @@ export default function PartyPlanner() {
     setPartyPlan(plan);
   };
 
-  const regenerateMenu = () => {
-    generateMenu();
-  };
-
   return (
     <div className="party-planner">
       <div className="planner-header">

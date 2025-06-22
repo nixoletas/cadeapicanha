@@ -24,6 +24,7 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
       case 'lamb': return '🐑';
       case 'fish': return '🐟';
       case 'seafood': return '🦐';
+      case 'bread': return '🥖';
       default: return '🥩';
     }
   };
