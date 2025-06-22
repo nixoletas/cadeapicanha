@@ -42,12 +42,12 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
               <span className="value">{formatCurrency(partyPlan.totalCost)}</span>
             </div>
             <div className="summary-item">
-              <span className="label">Peso Total:</span>
-              <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
+              <span className="label">Custo por convidado:</span>
+              <span className="value">{formatCurrency(partyPlan.totalCost / partyPlan.guestCount)}</span>
             </div>
             <div className="summary-item">
-              <span className="label">Tempo de Preparo:</span>
-              <span className="value">{formatTime(partyPlan.estimatedCookingTime)}</span>
+              <span className="label">Peso Total:</span>
+              <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
             </div>
           </div>
         </div>
@@ -107,21 +107,6 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      <div className="cooking-tips">
-        <h3>👨‍🍳 Dicas de Preparo</h3>
-        <div className="tips-content">
-          <p>
-            <strong>Tempo de Preparação:</strong> Comece a cozinhar {formatTime(partyPlan.estimatedCookingTime)} antes do início da sua festa.
-          </p>
-          <p>
-            <strong>Armazenamento:</strong> Mantenha a carne crua refrigerada até estar pronta para cozinhar. Carne cozida pode ser mantida quente em uma panela elétrica ou bandeja de aquecimento.
-          </p>
-          <p>
-            <strong>Segurança:</strong> Use um termômetro de carne para garantir temperaturas adequadas de cozimento. Carnes moídas devem atingir 71°C, aves 74°C, e bifes/assados 63°C.
-          </p>
         </div>
       </div>
     </div>

@@ -86,7 +86,7 @@ export default function PartyPlanner() {
           <h2>Preferências</h2>
           
           <div className="form-group">
-            <label>Nível de Orçamento:</label>
+            <label>Nível de Orçamento</label>
             <div className="radio-group">
               <label>
                 <input
@@ -122,7 +122,7 @@ export default function PartyPlanner() {
           </div>
 
           <div className="form-group">
-            <label>Nível de Variedade:</label>
+            <label>Nível de Variedade</label>
             <div className="radio-group">
               <label>
                 <input
@@ -158,7 +158,7 @@ export default function PartyPlanner() {
           </div>
 
           <div className="form-group">
-            <label>Restrições Alimentares:</label>
+            <label>Restrições Alimentares</label>
             <div className="checkbox-group">
               <label>
                 <input
