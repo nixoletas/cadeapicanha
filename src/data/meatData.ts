@@ -130,7 +130,7 @@ export const meatTypes: MeatType[] = [
   // Lamb
   {
     id: 'lamb-chops',
-    name: 'Lamb Chops',
+    name: 'Carneiro',
     category: 'lamb',
     portionPerPerson: 8, // 8 oz per person
     pricePerPound: 16.99,

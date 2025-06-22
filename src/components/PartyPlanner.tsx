@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import type { PartyPlan } from '../types/meat';
 import { generateAutoMenu } from '../utils/calculations';
-import { useI18n } from '../i18n/I18nContext';
 import MenuDisplay from './MenuDisplay';
 import './PartyPlanner.css';
 
 export default function PartyPlanner() {
-  const { t } = useI18n();
   const [guestCount, setGuestCount] = useState(10);
   const [budget, setBudget] = useState<'low' | 'medium' | 'high'>('medium');
   const [variety, setVariety] = useState<'minimal' | 'moderate' | 'extensive'>('moderate');
@@ -40,17 +38,17 @@ export default function PartyPlanner() {
     <div className="party-planner">
       <div className="planner-header">
         <div className="header-content">
-          <h1>{t('title')}</h1>
-          <p>{t('subtitle')}</p>
+          <h1>🥩 App de Medição de Carnes</h1>
+          <p>Calcule a quantidade perfeita de carne para sua festa!</p>
         </div>
       </div>
 
       <div className="planner-form">
         <div className="form-section">
-          <h2>{t('partyDetails')}</h2>
+          <h2>Detalhes da Festa</h2>
           
           <div className="form-group">
-            <label htmlFor="guestCount">{t('numberOfGuests')}</label>
+            <label htmlFor="guestCount">Número de Convidados:</label>
             <input
               type="number"
               id="guestCount"
@@ -64,10 +62,10 @@ export default function PartyPlanner() {
         </div>
 
         <div className="form-section">
-          <h2>{t('preferences')}</h2>
+          <h2>Preferências</h2>
           
           <div className="form-group">
-            <label>{t('budgetLevel')}</label>
+            <label>Nível de Orçamento:</label>
             <div className="radio-group">
               <label>
                 <input
@@ -77,7 +75,7 @@ export default function PartyPlanner() {
                   checked={budget === 'low'}
                   onChange={(e) => setBudget(e.target.value as 'low' | 'medium' | 'high')}
                 />
-                <span>{t('budgetLow')}</span>
+                <span>Baixo (R$)</span>
               </label>
               <label>
                 <input
@@ -87,7 +85,7 @@ export default function PartyPlanner() {
                   checked={budget === 'medium'}
                   onChange={(e) => setBudget(e.target.value as 'low' | 'medium' | 'high')}
                 />
-                <span>{t('budgetMedium')}</span>
+                <span>Médio (R$$)</span>
               </label>
               <label>
                 <input
@@ -97,13 +95,13 @@ export default function PartyPlanner() {
                   checked={budget === 'high'}
                   onChange={(e) => setBudget(e.target.value as 'low' | 'medium' | 'high')}
                 />
-                <span>{t('budgetHigh')}</span>
+                <span>Alto (R$$$)</span>
               </label>
             </div>
           </div>
 
           <div className="form-group">
-            <label>{t('varietyLevel')}</label>
+            <label>Nível de Variedade:</label>
             <div className="radio-group">
               <label>
                 <input
@@ -113,7 +111,7 @@ export default function PartyPlanner() {
                   checked={variety === 'minimal'}
                   onChange={(e) => setVariety(e.target.value as 'minimal' | 'moderate' | 'extensive')}
                 />
-                <span>{t('varietyMinimal')}</span>
+                <span>Mínima (2 tipos)</span>
               </label>
               <label>
                 <input
@@ -123,7 +121,7 @@ export default function PartyPlanner() {
                   checked={variety === 'moderate'}
                   onChange={(e) => setVariety(e.target.value as 'minimal' | 'moderate' | 'extensive')}
                 />
-                <span>{t('varietyModerate')}</span>
+                <span>Moderada (4 tipos)</span>
               </label>
               <label>
                 <input
@@ -133,13 +131,13 @@ export default function PartyPlanner() {
                   checked={variety === 'extensive'}
                   onChange={(e) => setVariety(e.target.value as 'minimal' | 'moderate' | 'extensive')}
                 />
-                <span>{t('varietyExtensive')}</span>
+                <span>Extensa (6 tipos)</span>
               </label>
             </div>
           </div>
 
           <div className="form-group">
-            <label>{t('cookingDifficulty')}</label>
+            <label>Dificuldade de Preparo:</label>
             <div className="radio-group">
               <label>
                 <input
@@ -149,7 +147,7 @@ export default function PartyPlanner() {
                   checked={difficulty === 'easy'}
                   onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
                 />
-                <span>{t('difficultyEasy')}</span>
+                <span>Fácil</span>
               </label>
               <label>
                 <input
@@ -159,7 +157,7 @@ export default function PartyPlanner() {
                   checked={difficulty === 'medium'}
                   onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
                 />
-                <span>{t('difficultyMedium')}</span>
+                <span>Médio</span>
               </label>
               <label>
                 <input
@@ -169,13 +167,13 @@ export default function PartyPlanner() {
                   checked={difficulty === 'hard'}
                   onChange={(e) => setDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}
                 />
-                <span>{t('difficultyHard')}</span>
+                <span>Difícil</span>
               </label>
             </div>
           </div>
 
           <div className="form-group">
-            <label>{t('dietaryRestrictions')}</label>
+            <label>Restrições Alimentares:</label>
             <div className="checkbox-group">
               <label>
                 <input
@@ -183,7 +181,7 @@ export default function PartyPlanner() {
                   checked={dietary.includes('no-pork')}
                   onChange={() => handleDietaryChange('no-pork')}
                 />
-                <span>{t('noPork')}</span>
+                <span>Sem Porco</span>
               </label>
               <label>
                 <input
@@ -191,7 +189,7 @@ export default function PartyPlanner() {
                   checked={dietary.includes('no-beef')}
                   onChange={() => handleDietaryChange('no-beef')}
                 />
-                <span>{t('noBeef')}</span>
+                <span>Sem Carne Bovina</span>
               </label>
               <label>
                 <input
@@ -199,7 +197,7 @@ export default function PartyPlanner() {
                   checked={dietary.includes('no-seafood')}
                   onChange={() => handleDietaryChange('no-seafood')}
                 />
-                <span>{t('noSeafood')}</span>
+                <span>Sem Frutos do Mar</span>
               </label>
             </div>
           </div>
@@ -210,7 +208,7 @@ export default function PartyPlanner() {
             className="generate-btn"
             onClick={generateMenu}
           >
-            {t('generateMenu')}
+            🍖 Gerar Cardápio
           </button>
         </div>
       </div>
@@ -218,12 +216,12 @@ export default function PartyPlanner() {
       {partyPlan && (
         <div className="menu-section">
           <div className="menu-header">
-            <h2>{t('yourPartyMenu')}</h2>
+            <h2>Seu Cardápio da Festa</h2>
             <button 
               className="regenerate-btn"
               onClick={regenerateMenu}
             >
-              {t('regenerate')}
+              🔄 Regenerar
             </button>
           </div>
           <MenuDisplay partyPlan={partyPlan} />

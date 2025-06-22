@@ -1,6 +1,5 @@
 import type { PartyPlan } from '../types/meat';
 import { formatCurrency, formatWeight, formatTime } from '../utils/calculations';
-import { useI18n } from '../i18n/I18nContext';
 import './MenuDisplay.css';
 
 interface MenuDisplayProps {
@@ -8,8 +7,6 @@ interface MenuDisplayProps {
 }
 
 export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
-  const { t } = useI18n();
-
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy': return '#4CAF50';
@@ -31,26 +28,44 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
     }
   };
 
+  const getDifficultyText = (difficulty: string) => {
+    switch (difficulty) {
+      case 'easy': return 'Fácil';
+      case 'medium': return 'Médio';
+      case 'hard': return 'Difícil';
+      default: return difficulty;
+    }
+  };
+
+  const getDietaryNote = (note: string) => {
+    switch (note) {
+      case 'Pork-free menu': return 'Cardápio sem porco';
+      case 'Beef-free menu': return 'Cardápio sem carne bovina';
+      case 'Seafood-free menu': return 'Cardápio sem frutos do mar';
+      default: return note;
+    }
+  };
+
   return (
     <div className="menu-display">
       <div className="menu-summary">
         <div className="summary-card">
-          <h3>{t('summary')}</h3>
+          <h3>📊 Resumo</h3>
           <div className="summary-grid">
             <div className="summary-item">
-              <span className="label">{t('guests')}</span>
+              <span className="label">Convidados:</span>
               <span className="value">{partyPlan.guestCount}</span>
             </div>
             <div className="summary-item">
-              <span className="label">{t('totalCost')}</span>
+              <span className="label">Custo Total:</span>
               <span className="value">{formatCurrency(partyPlan.totalCost)}</span>
             </div>
             <div className="summary-item">
-              <span className="label">{t('totalWeight')}</span>
+              <span className="label">Peso Total:</span>
               <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
             </div>
             <div className="summary-item">
-              <span className="label">{t('cookingTime')}</span>
+              <span className="label">Tempo de Preparo:</span>
               <span className="value">{formatTime(partyPlan.estimatedCookingTime)}</span>
             </div>
           </div>
@@ -58,23 +73,18 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
 
         {partyPlan.dietaryNotes.length > 0 && (
           <div className="dietary-notes">
-            <h4>{t('dietaryNotes')}</h4>
+            <h4>📝 Observações Alimentares:</h4>
             <ul>
-              {partyPlan.dietaryNotes.map((note, index) => {
-                let translatedNote = note;
-                if (note === 'Pork-free menu') translatedNote = t('porkFreeMenu');
-                if (note === 'Beef-free menu') translatedNote = t('beefFreeMenu');
-                if (note === 'Seafood-free menu') translatedNote = t('seafoodFreeMenu');
-                
-                return <li key={index}>{translatedNote}</li>;
-              })}
+              {partyPlan.dietaryNotes.map((note, index) => (
+                <li key={index}>{getDietaryNote(note)}</li>
+              ))}
             </ul>
           </div>
         )}
       </div>
 
       <div className="menu-items">
-        <h3>{t('menuItems')}</h3>
+        <h3>🍽️ Itens do Cardápio</h3>
         <div className="items-grid">
           {partyPlan.menuItems.map((item, index) => (
             <div key={index} className="menu-item-card">
@@ -90,36 +100,34 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
                   className="difficulty-badge"
                   style={{ backgroundColor: getDifficultyColor(item.meat.difficulty) }}
                 >
-                  {item.meat.difficulty === 'easy' ? t('difficultyEasy') : 
-                   item.meat.difficulty === 'medium' ? t('difficultyMedium') : 
-                   t('difficultyHard')}
+                  {getDifficultyText(item.meat.difficulty)}
                 </div>
               </div>
 
               <div className="item-details">
                 <div className="detail-row">
-                  <span className="detail-label">{t('quantity')}</span>
+                  <span className="detail-label">Quantidade:</span>
                   <span className="detail-value">{formatWeight(item.quantity)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">{t('portions')}</span>
-                  <span className="detail-value">{item.totalPortions} {t('people')}</span>
+                  <span className="detail-label">Porções:</span>
+                  <span className="detail-value">{item.totalPortions} pessoas</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">{t('pricePerLb')}</span>
+                  <span className="detail-label">Preço por kg:</span>
                   <span className="detail-value">{formatCurrency(item.meat.pricePerPound)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">{t('totalCostItem')}</span>
+                  <span className="detail-label">Custo Total:</span>
                   <span className="detail-value total-cost">{formatCurrency(item.totalCost)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">{t('cookingTimeItem')}</span>
+                  <span className="detail-label">Tempo de Preparo:</span>
                   <span className="detail-value">{formatTime(item.meat.cookingTime)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">{t('portionPerPerson')}</span>
-                  <span className="detail-value">{item.meat.portionPerPerson} {t('oz')}</span>
+                  <span className="detail-label">Porção por Pessoa:</span>
+                  <span className="detail-value">{item.meat.portionPerPerson} oz</span>
                 </div>
               </div>
             </div>
@@ -128,16 +136,16 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
       </div>
 
       <div className="cooking-tips">
-        <h3>{t('cookingTips')}</h3>
+        <h3>👨‍🍳 Dicas de Preparo</h3>
         <div className="tips-content">
           <p>
-            <strong>{t('preparationTime')}</strong> {t('preparationTimeText', { time: formatTime(partyPlan.estimatedCookingTime) })}
+            <strong>Tempo de Preparação:</strong> Comece a cozinhar {formatTime(partyPlan.estimatedCookingTime)} antes do início da sua festa.
           </p>
           <p>
-            <strong>{t('storage')}</strong> {t('storageText')}
+            <strong>Armazenamento:</strong> Mantenha a carne crua refrigerada até estar pronta para cozinhar. Carne cozida pode ser mantida quente em uma panela elétrica ou bandeja de aquecimento.
           </p>
           <p>
-            <strong>{t('safety')}</strong> {t('safetyText')}
+            <strong>Segurança:</strong> Use um termômetro de carne para garantir temperaturas adequadas de cozimento. Carnes moídas devem atingir 71°C, aves 74°C, e bifes/assados 63°C.
           </p>
         </div>
       </div>
