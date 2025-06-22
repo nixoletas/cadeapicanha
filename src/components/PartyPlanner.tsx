@@ -38,8 +38,8 @@ export default function PartyPlanner() {
     <div className="party-planner">
       <div className="planner-header">
         <div className="header-content">
-          <h1>🥩 App de Medição de Carnes</h1>
-          <p>Calcule a quantidade perfeita de carne para sua festa!</p>
+          <h1>🥩 Cadê a picanha?</h1>
+          <p>App que te ajuda a calcular a quantidade de carne para sua festa!</p>
         </div>
       </div>
 
@@ -221,7 +221,7 @@ export default function PartyPlanner() {
               className="regenerate-btn"
               onClick={regenerateMenu}
             >
-              🔄 Regenerar
+              🔄 Gerar novamente
             </button>
           </div>
           <MenuDisplay partyPlan={partyPlan} />
