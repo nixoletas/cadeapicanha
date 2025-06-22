@@ -104,10 +104,6 @@ src/
 │   └── meat.ts               # Interfaces TypeScript
 ├── utils/
 │   └── calculations.ts       # Funções utilitárias de cálculo
-├── i18n/
-│   ├── I18nContext.tsx       # Contexto de internacionalização
-│   └── translations/
-│       └── pt-BR.ts          # Traduções em português
 ├── App.tsx                   # Componente principal do app
 └── main.tsx                  # Ponto de entrada do app
 ```
