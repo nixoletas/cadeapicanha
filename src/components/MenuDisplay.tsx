@@ -39,9 +39,9 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
 
   const getDietaryNote = (note: string) => {
     switch (note) {
-      case 'Pork-free menu': return 'Cardápio sem porco';
-      case 'Beef-free menu': return 'Cardápio sem carne bovina';
-      case 'Seafood-free menu': return 'Cardápio sem frutos do mar';
+      case 'Pork-free menu': return '* Sem porco';
+      case 'Beef-free menu': return '* Sem carne bovina';
+      case 'Seafood-free menu': return '* Sem frutos do mar';
       default: return note;
     }
   };
@@ -73,7 +73,7 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
 
         {partyPlan.dietaryNotes.length > 0 && (
           <div className="dietary-notes">
-            <h4>📝 Observações Alimentares:</h4>
+            <h4>📝 Observações</h4>
             <ul>
               {partyPlan.dietaryNotes.map((note, index) => (
                 <li key={index}>{getDietaryNote(note)}</li>
