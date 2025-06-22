@@ -1,7 +1,7 @@
 export interface MeatType {
   id: string;
   name: string;
-  category: 'beef' | 'pork' | 'chicken' | 'lamb' | 'fish' | 'seafood';
+  category: 'beef' | 'pork' | 'chicken' | 'lamb' | 'fish' | 'seafood' | 'sides';
   portionPerPerson: number; // in ounces
   pricePerPound: number;
   description: string;
