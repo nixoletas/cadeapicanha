@@ -1,9 +1,9 @@
-import PartyPlanner from './components/PartyPlanner'
+import Menu from './components/Menu'
 
 function App() {
   return (
     <div className="App">
-      <PartyPlanner />
+      <Menu />
     </div>
   )
 }

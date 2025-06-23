@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import type { PartyPlan } from '../types/meat';
-import { generateAutoMenu } from '../utils/calculations';
-import MenuDisplay from './MenuDisplay';
-import './PartyPlanner.css';
+import type { PartyPlan } from '../data/tipos';
+import { generateAutoMenu } from '../utils/calculos';
+import MenuDisplay from './Relatorio';
+import './Menu.css';
 
-export default function PartyPlanner() {
+export default function Menu() {
   const [guestCount, setGuestCount] = useState(10);
   const [budget, setBudget] = useState<'low' | 'medium' | 'high'>('medium');
   const [variety, setVariety] = useState<'minimal' | 'moderate' | 'extensive'>('moderate');

@@ -1,16 +1,25 @@
-export interface MeatType {
+export interface Carne {
+  id: string;
+  nome: string;
+  categoria: 'carne' | 'porco' | 'frango' | 'cordeiro' | 'peixe';
+  porcao: number; // in ounces
+  preco: number;
+  descricao: string;
+  imagem?: string;
+}
+
+export interface PaoAlho {
   id: string;
   name: string;
-  category: 'beef' | 'pork' | 'chicken' | 'lamb' | 'fish' | 'sides' | 'bread';
-  portionPerPerson: number; // in ounces
+  category: 'complementos';
+  porcao: number; // in ounces
   pricePerPound: number;
   description: string;
   image?: string;
-  cookingTime: number; // in minutes
 }
 
 export interface MenuItem {
-  meat: MeatType;
+  meat: Carne;
   quantity: number; // in pounds
   totalCost: number;
   totalPortions: number;

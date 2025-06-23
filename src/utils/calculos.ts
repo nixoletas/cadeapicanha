@@ -1,19 +1,19 @@
-import type { MeatType, MenuItem, PartyPlan } from '../types/meat';
-import { meatTypes } from '../data/meatData';
+import type { Carne, MenuItem, PartyPlan } from '../data/tipos';
+import { tiposDeCarne } from '../data/Dados';
 
-export const calculateMeatQuantity = (meat: MeatType, guestCount: number): number => {
+export const calculateMeatQuantity = (meat: Carne, guestCount: number): number => {
   // Convert ounces to pounds (16 oz = 1 lb)
-  const totalOunces = meat.portionPerPerson * guestCount;
+  const totalOunces = meat.porcao * guestCount;
   const totalPounds = totalOunces / 16;
   
   // Add 20% buffer for variety and seconds
   return Math.ceil(totalPounds * 1.2);
 };
 
-export const calculateMenuItem = (meat: MeatType, guestCount: number): MenuItem => {
+export const calculateMenuItem = (meat: Carne, guestCount: number): MenuItem => {
   const quantity = calculateMeatQuantity(meat, guestCount);
-  const totalCost = quantity * meat.pricePerPound;
-  const totalPortions = Math.floor((quantity * 16) / meat.portionPerPerson);
+  const totalCost = quantity * meat.preco;
+  const totalPortions = Math.floor((quantity * 16) / meat.porcao);
   
   return {
     meat,
@@ -31,21 +31,21 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   const { budget = 'medium', variety = 'moderate', dietary = [] } = preferences;
   
   // Filter meats based on preferences
-  let availableMeats = meatTypes;
+  let availableMeats = tiposDeCarne;
   
   // Filter by budget
   if (budget === 'low') {
-    availableMeats = availableMeats.filter(meat => meat.pricePerPound <= 8);
+    availableMeats = availableMeats.filter(meat => meat.preco <= 8);
   } else if (budget === 'high') {
-    availableMeats = availableMeats.filter(meat => meat.pricePerPound >= 12);
+    availableMeats = availableMeats.filter(meat => meat.preco >= 12);
   }
   
   // Filter by dietary restrictions
   if (dietary.includes('no-pork')) {
-    availableMeats = availableMeats.filter(meat => meat.category !== 'pork');
+    availableMeats = availableMeats.filter(meat => meat.categoria !== 'porco');
   }
   if (dietary.includes('no-beef')) {
-    availableMeats = availableMeats.filter(meat => meat.category !== 'beef');
+    availableMeats = availableMeats.filter(meat => meat.categoria !== 'carne');
   }
   
   // Determine number of meat types based on variety preference
@@ -62,7 +62,7 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   }
   
   // Select meats ensuring variety across categories
-  const selectedMeats: MeatType[] = [];
+  const selectedMeats: Carne[] = [];
   const categories = new Set<string>();
   
   // First, try to get one from each category (excluding seafood)
@@ -70,7 +70,7 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   for (const category of categoryOrder) {
     if (selectedMeats.length >= meatTypeCount) break;
     
-    const categoryMeats = availableMeats.filter(meat => meat.category === category);
+    const categoryMeats = availableMeats.filter(meat => meat.categoria === category);
     if (categoryMeats.length > 0) {
       const selected = categoryMeats[Math.floor(Math.random() * categoryMeats.length)];
       selectedMeats.push(selected);
@@ -84,8 +84,8 @@ export const generateAutoMenu = (guestCount: number, preferences: {
     if (remainingMeats.length === 0) break;
     
     // Prioritize bread and sides for remaining slots
-    const breadAndSides = remainingMeats.filter(meat => ['bread', 'sides'].includes(meat.category));
-    const otherMeats = remainingMeats.filter(meat => !['bread', 'sides'].includes(meat.category));
+    const breadAndSides = remainingMeats.filter(meat => ['complementos'].includes(meat.categoria));
+    const otherMeats = remainingMeats.filter(meat => !['complementos'].includes(meat.categoria));
     
     const meatsToChooseFrom = breadAndSides.length > 0 ? breadAndSides : otherMeats;
     const selected = meatsToChooseFrom[Math.floor(Math.random() * meatsToChooseFrom.length)];
@@ -108,8 +108,8 @@ export const generateAutoMenu = (guestCount: number, preferences: {
     
     menuItems = menuItems.map(item => {
       const adjustedQuantity = Math.ceil(item.quantity * adjustmentFactor * 100) / 100; // Round to 2 decimal places
-      const adjustedTotalCost = adjustedQuantity * item.meat.pricePerPound;
-      const adjustedTotalPortions = Math.floor((adjustedQuantity * 16) / item.meat.portionPerPerson);
+      const adjustedTotalCost = adjustedQuantity * item.meat.preco;
+      const adjustedTotalPortions = Math.floor((adjustedQuantity * 16) / item.meat.porcao);
       
       return {
         ...item,
@@ -123,7 +123,6 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   // Calculate totals
   const totalCost = menuItems.reduce((sum, item) => sum + item.totalCost, 0);
   const totalMeatWeight = menuItems.reduce((sum, item) => sum + item.quantity, 0);
-  const estimatedCookingTime = Math.max(...menuItems.map(item => item.meat.cookingTime));
   
   // Generate dietary notes
   const dietaryNotes: string[] = [];
@@ -140,7 +139,7 @@ export const generateAutoMenu = (guestCount: number, preferences: {
     menuItems,
     totalCost,
     totalMeatWeight,
-    estimatedCookingTime,
+    estimatedCookingTime: 0,
     dietaryNotes
   };
 };

@@ -1,6 +1,6 @@
-import type { PartyPlan } from '../types/meat';
-import { formatCurrency, formatWeight, formatTime } from '../utils/calculations';
-import './MenuDisplay.css';
+import type { PartyPlan } from '../data/tipos';
+import { formatCurrency, formatWeight } from '../utils/calculos';
+import './Relatorio.css';
 
 interface MenuDisplayProps {
   partyPlan: PartyPlan;
@@ -80,11 +80,11 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
             <div key={index} className="menu-item-card">
               <div className="item-header">
                 <div className="item-icon">
-                  {getCategoryIcon(item.meat.category)}
+                  {getCategoryIcon(item.meat.categoria)}
                 </div>
                 <div className="item-info">
-                  <h4>{item.meat.name}</h4>
-                  <p className="item-description">{item.meat.description}</p>
+                  <h4>{item.meat.nome}</h4>
+                  <p className="item-description">{item.meat.descricao}</p>
                 </div>
               </div>
 
@@ -99,19 +99,15 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Preço por kg:</span>
-                  <span className="detail-value">{formatCurrency(item.meat.pricePerPound)}</span>
+                  <span className="detail-value">{formatCurrency(item.meat.preco)}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Custo Total:</span>
                   <span className="detail-value total-cost">{formatCurrency(item.totalCost)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">Tempo de Preparo:</span>
-                  <span className="detail-value">{formatTime(item.meat.cookingTime)}</span>
-                </div>
-                <div className="detail-row">
                   <span className="detail-label">Porção por Pessoa:</span>
-                  <span className="detail-value">{item.meat.portionPerPerson} oz</span>
+                  <span className="detail-value">{item.meat.porcao} oz</span>
                 </div>
               </div>
             </div>
