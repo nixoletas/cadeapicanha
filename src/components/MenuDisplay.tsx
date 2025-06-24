@@ -35,28 +35,16 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
           <h3>📊 Resumo</h3>
           <div className="summary-grid">
             <div className="summary-item">
-              <span className="label">Convidados:</span>
+              <span className="label">Convidados</span>
               <span className="value">{partyPlan.guestCount}</span>
             </div>
             <div className="summary-item">
-              <span className="label">Custo Total:</span>
-              <span className="value">{formatCurrency(partyPlan.totalCost)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Custo por convidado:</span>
+              <span className="label">Custo por convidado</span>
               <span className="value">{formatCurrency(partyPlan.totalCost / partyPlan.guestCount)}</span>
             </div>
             <div className="summary-item">
-              <span className="label">Peso Total:</span>
-              <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Limite Máximo:</span>
-              <span className="value">{formatWeight((partyPlan.guestCount * 400) / 1000 / 0.453592)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Média por Pessoa:</span>
-              <span className="value">{formatWeight(partyPlan.totalMeatWeight / partyPlan.guestCount)}</span>
+              <span className="label">Custo Total</span>
+              <span className="value">{formatCurrency(partyPlan.totalCost)}</span>
             </div>
           </div>
         </div>
