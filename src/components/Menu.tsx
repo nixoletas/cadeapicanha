@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { PartyPlan } from '../data/tipos';
+import type { PartyPlan } from '../data/interfaces';
 import { generateAutoMenu } from '../utils/calculos';
 import MenuDisplay from './Relatorio';
 import './Menu.css';

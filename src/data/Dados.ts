@@ -1,4 +1,4 @@
-import type { Carne } from './tipos';
+import type { Carne } from './interfaces';
 
 export const tiposDeCarne: Carne[] = [
   // Carne de Boi

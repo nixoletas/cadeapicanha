@@ -1,4 +1,4 @@
-import type { PartyPlan } from '../data/tipos';
+import type { PartyPlan } from '../data/interfaces';
 import { formatCurrency, formatWeight } from '../utils/calculos';
 import './Relatorio.css';
 
@@ -80,34 +80,34 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
             <div key={index} className="menu-item-card">
               <div className="item-header">
                 <div className="item-icon">
-                  {getCategoryIcon(item.meat.categoria)}
+                  {getCategoryIcon(item.tipo.categoria)}
                 </div>
                 <div className="item-info">
-                  <h4>{item.meat.nome}</h4>
-                  <p className="item-description">{item.meat.descricao}</p>
+                  <h4>{item.tipo.nome}</h4>
+                  <p className="item-description">{item.tipo.descricao}</p>
                 </div>
               </div>
 
               <div className="item-details">
                 <div className="detail-row">
                   <span className="detail-label">Quantidade:</span>
-                  <span className="detail-value">{formatWeight(item.quantity)}</span>
+                  <span className="detail-value">{formatWeight(item.quantidade)}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Porções:</span>
-                  <span className="detail-value">{item.totalPortions} pessoas</span>
+                  <span className="detail-value">{item.totalPorcoes} pessoas</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Preço por kg:</span>
-                  <span className="detail-value">{formatCurrency(item.meat.preco)}</span>
+                  <span className="detail-value">{formatCurrency(item.tipo.preco)}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Custo Total:</span>
-                  <span className="detail-value total-cost">{formatCurrency(item.totalCost)}</span>
+                  <span className="detail-value total-cost">{formatCurrency(item.custoTotal)}</span>
                 </div>
                 <div className="detail-row">
                   <span className="detail-label">Porção por Pessoa:</span>
-                  <span className="detail-value">{item.meat.porcao} oz</span>
+                  <span className="detail-value">{item.tipo.porcao} oz</span>
                 </div>
               </div>
             </div>

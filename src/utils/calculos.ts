@@ -1,4 +1,4 @@
-import type { Carne, MenuItem, PartyPlan } from '../data/tipos';
+import type { Carne, MenuItem, PartyPlan } from '../data/interfaces';
 import { tiposDeCarne } from '../data/Dados';
 
 export const calculateMeatQuantity = (meat: Carne, guestCount: number): number => {
@@ -16,10 +16,10 @@ export const calculateMenuItem = (meat: Carne, guestCount: number): MenuItem => 
   const totalPortions = Math.floor((quantity * 16) / meat.porcao);
   
   return {
-    meat,
-    quantity,
-    totalCost,
-    totalPortions
+    tipo: meat,
+    quantidade: quantity,
+    custoTotal: totalCost,
+    totalPorcoes: totalPortions
   };
 };
 
@@ -100,29 +100,29 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   let menuItems = selectedMeats.map(meat => calculateMenuItem(meat, guestCount));
   
   // Calculate current total weight
-  let currentTotalWeight = menuItems.reduce((sum, item) => sum + item.quantity, 0);
+  let currentTotalWeight = menuItems.reduce((sum, item) => sum + item.quantidade, 0);
   
   // If total weight exceeds limit, adjust quantities proportionally
   if (currentTotalWeight > maxTotalWeightLbs) {
     const adjustmentFactor = maxTotalWeightLbs / currentTotalWeight;
     
     menuItems = menuItems.map(item => {
-      const adjustedQuantity = Math.ceil(item.quantity * adjustmentFactor * 100) / 100; // Round to 2 decimal places
-      const adjustedTotalCost = adjustedQuantity * item.meat.preco;
-      const adjustedTotalPortions = Math.floor((adjustedQuantity * 16) / item.meat.porcao);
+      const adjustedQuantity = Math.ceil(item.quantidade * adjustmentFactor * 100) / 100; // Round to 2 decimal places
+      const adjustedTotalCost = adjustedQuantity * item.tipo.preco;
+      const adjustedTotalPortions = Math.floor((adjustedQuantity * 16) / item.tipo.porcao);
       
       return {
         ...item,
-        quantity: adjustedQuantity,
-        totalCost: adjustedTotalCost,
-        totalPortions: adjustedTotalPortions
+        quantidade: adjustedQuantity,
+        custoTotal: adjustedTotalCost,
+        totalPorcoes: adjustedTotalPortions
       };
     });
   }
   
   // Calculate totals
-  const totalCost = menuItems.reduce((sum, item) => sum + item.totalCost, 0);
-  const totalMeatWeight = menuItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalCost = menuItems.reduce((sum, item) => sum + item.custoTotal, 0);
+  const totalMeatWeight = menuItems.reduce((sum, item) => sum + item.quantidade, 0);
   
   // Generate dietary notes
   const dietaryNotes: string[] = [];
