@@ -74,7 +74,7 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
       </div>
 
       <div className="menu-items">
-        <h3>🍽️ Itens do Cardápio</h3>
+        <h3>🍽️ Itens do Churrasco</h3>
         <div className="items-grid">
           {partyPlan.menuItems.map((item, index) => (
             <div key={index} className="menu-item-card">
