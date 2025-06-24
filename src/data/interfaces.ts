@@ -25,7 +25,7 @@ export interface MenuItem {
   totalPorcoes: number;
 }
 
-export interface PartyPlan {
+export interface Churrasco {
   guestCount: number;
   menuItems: MenuItem[];
   totalCost: number;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { PartyPlan } from '../data/interfaces';
+import type { Churrasco } from '../data/interfaces';
 import { generateAutoMenu } from '../utils/calculos';
 import MenuDisplay from './Relatorio';
 import './Menu.css';
@@ -9,7 +9,7 @@ export default function Menu() {
   const [budget, setBudget] = useState<'low' | 'medium' | 'high'>('medium');
   const [variety, setVariety] = useState<'minimal' | 'moderate' | 'extensive'>('moderate');
   const [dietary, setDietary] = useState<string[]>([]);
-  const [partyPlan, setPartyPlan] = useState<PartyPlan | null>(null);
+  const [partyPlan, setPartyPlan] = useState<Churrasco | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDietaryChange = (restriction: string) => {
@@ -196,7 +196,7 @@ export default function Menu() {
           <div className="menu-header">
             <h2>Seu Cardápio da Festa</h2>
           </div>
-          <MenuDisplay partyPlan={partyPlan} />
+          <MenuDisplay churras={partyPlan} />
         </div>
       )}
     </div>

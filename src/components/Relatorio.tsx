@@ -1,12 +1,12 @@
-import type { PartyPlan } from '../data/interfaces';
+import type { Churrasco } from '../data/interfaces';
 import { formatCurrency, formatWeight } from '../utils/calculos';
 import './Relatorio.css';
 
 interface MenuDisplayProps {
-  partyPlan: PartyPlan;
+  churras: Churrasco;
 }
 
-export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
+export default function MenuDisplay({ churras }: MenuDisplayProps) {
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'beef': return '🐄';
@@ -36,36 +36,36 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
           <div className="summary-grid">
             <div className="summary-item">
               <span className="label">Convidados:</span>
-              <span className="value">{partyPlan.guestCount}</span>
+              <span className="value">{churras.guestCount}</span>
             </div>
             <div className="summary-item">
               <span className="label">Custo Total:</span>
-              <span className="value">{formatCurrency(partyPlan.totalCost)}</span>
+              <span className="value">{formatCurrency(churras.totalCost)}</span>
             </div>
             <div className="summary-item">
               <span className="label">Custo por convidado:</span>
-              <span className="value">{formatCurrency(partyPlan.totalCost / partyPlan.guestCount)}</span>
+              <span className="value">{formatCurrency(churras.totalCost / churras.guestCount)}</span>
             </div>
             <div className="summary-item">
               <span className="label">Peso Total:</span>
-              <span className="value">{formatWeight(partyPlan.totalMeatWeight)}</span>
+              <span className="value">{formatWeight(churras.totalMeatWeight)}</span>
             </div>
             <div className="summary-item">
               <span className="label">Limite Máximo:</span>
-              <span className="value">{formatWeight((partyPlan.guestCount * 400) / 1000 / 0.453592)}</span>
+              <span className="value">{formatWeight((churras.guestCount * 400) / 1000 / 0.453592)}</span>
             </div>
             <div className="summary-item">
               <span className="label">Média por Pessoa:</span>
-              <span className="value">{formatWeight(partyPlan.totalMeatWeight / partyPlan.guestCount)}</span>
+              <span className="value">{formatWeight(churras.totalMeatWeight / churras.guestCount)}</span>
             </div>
           </div>
         </div>
 
-        {partyPlan.dietaryNotes.length > 0 && (
+        {churras.dietaryNotes.length > 0 && (
           <div className="dietary-notes">
             <h4>📝 Observações</h4>
             <ul>
-              {partyPlan.dietaryNotes.map((note, index) => (
+              {churras.dietaryNotes.map((note, index) => (
                 <li key={index}>{getDietaryNote(note)}</li>
               ))}
             </ul>
@@ -76,7 +76,7 @@ export default function MenuDisplay({ partyPlan }: MenuDisplayProps) {
       <div className="menu-items">
         <h3>🍽️ Itens do Cardápio</h3>
         <div className="items-grid">
-          {partyPlan.menuItems.map((item, index) => (
+          {churras.menuItems.map((item, index) => (
             <div key={index} className="menu-item-card">
               <div className="item-header">
                 <div className="item-icon">

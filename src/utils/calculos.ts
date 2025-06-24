@@ -1,4 +1,4 @@
-import type { Carne, MenuItem, PartyPlan } from '../data/interfaces';
+import type { Carne, MenuItem, Churrasco } from '../data/interfaces';
 import { tiposDeCarne } from '../data/Dados';
 
 export const calculateMeatQuantity = (meat: Carne, guestCount: number): number => {
@@ -27,7 +27,7 @@ export const generateAutoMenu = (guestCount: number, preferences: {
   budget?: 'low' | 'medium' | 'high';
   variety?: 'minimal' | 'moderate' | 'extensive';
   dietary?: string[];
-} = {}): PartyPlan => {
+} = {}): Churrasco => {
   const { budget = 'medium', variety = 'moderate', dietary = [] } = preferences;
   
   // Filter meats based on preferences
