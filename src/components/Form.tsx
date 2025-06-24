@@ -1,5 +1,5 @@
 import type { Churrasco } from '../data/interfaces';
-import { formatCurrency, formatWeight } from '../utils/calculos';
+import { formatCurrency, formatWeight } from '../utils/Calculos';
 import './Form.css';
 
 interface MenuDisplayProps {
@@ -35,28 +35,12 @@ export default function MenuDisplay({ churras }: MenuDisplayProps) {
           <h3>📊 Resumo</h3>
           <div className="summary-grid">
             <div className="summary-item">
-              <span className="label">Convidados:</span>
+              <span className="label">Convidados</span>
               <span className="value">{churras.guestCount}</span>
             </div>
             <div className="summary-item">
-              <span className="label">Custo Total:</span>
-              <span className="value">{formatCurrency(churras.totalCost)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Custo por convidado:</span>
+              <span className="label">Custo por convidado</span>
               <span className="value">{formatCurrency(churras.totalCost / churras.guestCount)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Peso Total:</span>
-              <span className="value">{formatWeight(churras.totalMeatWeight)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Limite Máximo:</span>
-              <span className="value">{formatWeight((churras.guestCount * 400) / 1000 / 0.453592)}</span>
-            </div>
-            <div className="summary-item">
-              <span className="label">Média por Pessoa:</span>
-              <span className="value">{formatWeight(churras.totalMeatWeight / churras.guestCount)}</span>
             </div>
           </div>
         </div>
@@ -90,24 +74,16 @@ export default function MenuDisplay({ churras }: MenuDisplayProps) {
 
               <div className="item-details">
                 <div className="detail-row">
-                  <span className="detail-label">Quantidade:</span>
+                  <span className="detail-label">Quantidade</span>
                   <span className="detail-value">{formatWeight(item.quantidade)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">Porções:</span>
-                  <span className="detail-value">{item.totalPorcoes} pessoas</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">Preço por kg:</span>
+                  <span className="detail-label">Preço p/ Kg</span>
                   <span className="detail-value">{formatCurrency(item.tipo.preco)}</span>
                 </div>
                 <div className="detail-row">
-                  <span className="detail-label">Custo Total:</span>
+                  <span className="detail-label">Custo Total</span>
                   <span className="detail-value total-cost">{formatCurrency(item.custoTotal)}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">Porção por Pessoa:</span>
-                  <span className="detail-value">{item.tipo.porcao} oz</span>
                 </div>
               </div>
             </div>

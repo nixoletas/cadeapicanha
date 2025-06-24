@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Churrasco } from '../data/interfaces';
-import { generateAutoMenu } from '../utils/calculos';
+import { generateAutoMenu } from '../utils/Calculos';
 import MenuDisplay from './Form';
 import './Menu.css';
 
