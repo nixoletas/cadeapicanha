@@ -1,6 +1,6 @@
 import type { Churrasco } from '../data/interfaces';
 import { formatCurrency, formatWeight } from '../utils/calculos';
-import './Relatorio.css';
+import './Form.css';
 
 interface MenuDisplayProps {
   churras: Churrasco;

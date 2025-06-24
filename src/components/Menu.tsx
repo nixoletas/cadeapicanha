@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Churrasco } from '../data/interfaces';
 import { generateAutoMenu } from '../utils/calculos';
-import MenuDisplay from './Relatorio';
+import MenuDisplay from './Form';
 import './Menu.css';
 
 export default function Menu() {
