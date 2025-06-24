@@ -3,6 +3,7 @@ import type { Churrasco } from '../data/interfaces';
 import { generateAutoMenu } from '../utils/Calculos';
 import MenuDisplay from './Form';
 import './Menu.css';
+import Header from './Header';
 
 export default function Menu() {
   const [guestCount, setGuestCount] = useState(10);
@@ -36,14 +37,7 @@ export default function Menu() {
 
   return (
     <div className="party-planner">
-      <div className="planner-header">
-        <div className="header-content">
-          <h1>🥩 Cadê a picanha</h1>
-          <p>App que te ajuda a calcular a quantidade de carne para sua festa!</p>
-          <p className='smaller-description'>Insira a quantidade de convidados e as preferências para gerar um cardápio personalizado.</p>
-        </div>
-      </div>
-
+      <Header/>
       <div className="planner-form">
         <div className="form-section">
           <h2>Detalhes da Festa</h2>
